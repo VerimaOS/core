@@ -1,4 +1,5 @@
-import { create, IPFSHTTPClient } from 'ipfs-http-client';
+import { create } from 'ipfs-http-client'
+import type { IPFSHTTPClient } from 'ipfs-http-client'
 import { Buffer } from 'buffer';
 import { gzip, ungzip } from 'node-gzip';
 import NodeCache from 'node-cache';
