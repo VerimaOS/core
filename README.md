@@ -1,99 +1,138 @@
-# Verima OS – Core Protocol
+# VerimaOS: Decentralized Product Verification System
 
-> *The trust protocol for objects with memory.*
+VerimaOS is an open-source platform that enables transparency in product sourcing, production, and verification. It allows stores to create digital passports for their products, which include key data points like carbon footprint, certifications, reviews, and more.
 
-VerimaOS is an open, modular protocol to bring **verifiable memory** to physical products, people, and places.
+This project uses decentralized storage (IPFS/Filecoin) and smart contracts to ensure product integrity, transparency, and accountability.
 
-In a world full of vague claims, silent supply chains, and counterfeit goods, Verima introduces a simple concept:
+## 🌟 Features
 
-> What if every physical item had a **passport**?  
-> And anyone, anywhere, could help verify its truth?
+- **Digital Product Passports**: Create and manage verifiable digital identities for physical products
+- **Decentralized Storage**: Utilize IPFS/Filecoin for secure, distributed data storage
+- **Smart Contract Verification**: Ensure product authenticity through blockchain verification
+- **Platform Integration**: Easy integration with e-commerce platforms like Shopify
+- **Environmental Impact Tracking**: Monitor and verify product carbon footprint
+- **Open Standards**: Contribute to the development of open verification standards
 
-Verima makes that possible — by combining barcodes, public ledgers, verifiers, and simple UX into a decentralized layer of trust.
+## 🚀 Getting Started
 
----
+### Prerequisites
 
-## 🌱 The Vision
+- Node.js (v16 or higher)
+- Git
+- IPFS (optional for local development)
+- Ethereum development environment (e.g., Hardhat, Ganache)
 
-- **Objects should remember**  
-- **Verification should be public**  
-- **Trust should be rewarded**
+### Installation
 
-From a handmade necklace in Lisbon  
-to a jar of honey in Transylvania  
-to a bottle of wine in Florence —  
-Verima lets people mint digital passports, log truth events, and build collective trust.
+1. Clone the repository:
+```bash
+git clone git@github.com:VerimaOS/core.git
+cd core
+```
 
-This is not a brand platform.  
-This is a **truth network for the physical world**.
+2. Install dependencies:
+```bash
+npm install
+```
 
----
+3. Set up environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
 
-## 🧱 Project Modules
+4. Start the development server:
+```bash
+npm run dev
+```
 
-| Folder             | Purpose                                      |
-|--------------------|----------------------------------------------|
-| `/contracts`       | Smart contracts for minting, staking, trust-logging  
-| `/whitepaper`      | Protocol spec, architecture, and tokenomics  
-| `/web-app`         | Consumer scan app + Truth Missions frontend  
-| `/labs-dashboard`  | Verifier/lab UI to log tests or sign events  
-| `/sdk`             | Tools for barcode scanning, NFC, SFTs  
+### Environment Variables
 
-All modules are optional, forkable, and composable.
+Create a `.env` file with the following variables:
 
----
+```env
+# Server Configuration
+PORT=3000
 
-## 🔧 Technology-Agnostic Stack
+# IPFS Configuration
+IPFS_NODE_URL=http://localhost:5001
 
-Verima is designed to be flexible and interoperable.  
-You can implement it using the tech stack that fits your needs, including:
+# Blockchain Configuration
+CONTRACT_ADDRESS=your_contract_address
+PROVIDER_URL=http://localhost:8545
 
-- Blockchain platforms with low-cost smart contracts  
-- Distributed file storage (e.g. IPFS, Arweave, Ceramic)  
-- Mobile/web apps in Swift, React, or Flutter  
-- QR, NFC, or physical fingerprinting tools for product tagging
+# Optional: For production
+PRIVATE_KEY=your_private_key
+INFURA_PROJECT_ID=your_infura_project_id
+PINATA_API_KEY=your_pinata_api_key
+PINATA_SECRET_KEY=your_pinata_secret_key
+```
 
----
+## 📖 API Documentation
 
-## 💡 Use Cases
+### Endpoints
 
-- 🍯 Traceable honey from lab to shop to kitchen  
-- 💎 Unique jewellery with owner memory & resale passport  
-- 🍷 Wine bottles linked to harvest data and lab results  
-- 🧪 Public product testing by independent labs  
-- 🏬 Shop-level scanning & proof logs  
-- 🌐 Cross-border memory: timestamped, scanned, shared
+#### Create Digital Passport
+```http
+POST /api/passport
+```
 
----
+Request body:
+```json
+{
+  "name": "Product Name",
+  "description": "Product Description",
+  "manufacturer": "Manufacturer Name",
+  "carbonFootprint": 10.5,
+  "certifications": ["ISO9001", "GreenCert"],
+  "manufacturingDate": "2023-05-17",
+  "ownerAddress": "0x..."
+}
+```
 
-## 🤝 Get Involved
+#### Get Product Data
+```http
+GET /api/passport/:tokenId
+```
 
-Verima is open-source and community-first.
+#### Update Product Data
+```http
+PUT /api/passport/:tokenId
+```
 
-You can:
-- Contribute smart contracts, apps, or designs  
-- Submit truth mission ideas  
-- Join the DAO design  
-- Use the SDK to build Verima apps for your own use case
+#### Verify Product
+```http
+GET /api/verify/:tokenId
+```
 
----
+## 🧪 Testing
 
-## 🛡️ License
+Run the test suite:
 
-MIT — free to fork, remix, build upon.
+```bash
+npm test
+```
 
----
+## 🤝 Contributing
 
-## 📝 Memorandum
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-Verima was born in April 2025 with a simple intention:  
-> To give physical things a memory —  
-> and give people a way to know what's real.
+## 📜 License
 
-This protocol exists so that **care can be proven**,  
-**truth can be logged**,  
-and the physical world can finally earn **a layer of memory**.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-You're not just scanning. You're verifying the world.
+## 🌐 Links
 
-Maintained by the [VerimaOS](https://github.com/VerimaOS) community.
+- [Website](https://verima.os)
+- [Documentation](https://docs.verima.os)
+- [Community Discord](https://discord.gg/verima)
+- [Twitter](https://twitter.com/VerimaOS)
+
+## ✨ Core Team
+
+- [Core Team Member 1](https://github.com/username1)
+- [Core Team Member 2](https://github.com/username2)
+
+## 🙏 Acknowledgments
+
+Special thanks to our contributors and partners who help make VerimaOS possible.
