@@ -1,35 +1,25 @@
 import express from 'express';
-import { ethers } from 'ethers';
+import { IPFSService } from './storage/IPFSService';
 import { ProductAPI } from './api/ProductAPI';
+import { createProductRouter } from './api/routes';
 import dotenv from 'dotenv';
 
+// Load environment variables
 dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3001;
+const IPFS_NODE_URL = process.env.IPFS_NODE_URL || 'http://localhost:5001';
+
+// Initialize services
+const ipfsService = new IPFSService(IPFS_NODE_URL);
+const productAPI = new ProductAPI(ipfsService);
+
+// Middleware
 app.use(express.json());
 
-// Environment variables
-const PORT = process.env.PORT || 3000;
-const IPFS_NODE_URL = process.env.IPFS_NODE_URL || 'http://localhost:5001';
-const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
-const PROVIDER_URL = process.env.PROVIDER_URL || 'http://localhost:8545';
-
-if (!CONTRACT_ADDRESS) {
-  throw new Error('CONTRACT_ADDRESS environment variable is required');
-}
-
-// Setup blockchain provider
-const provider = new ethers.providers.JsonRpcProvider(PROVIDER_URL);
-
-// Initialize API
-const productAPI = new ProductAPI(
-  IPFS_NODE_URL,
-  CONTRACT_ADDRESS,
-  provider
-);
-
-// Setup routes
-app.use('/api', productAPI.getRouter());
+// Routes
+app.use('/api', createProductRouter(productAPI));
 
 // Health check endpoint
 app.get('/health', (_req, res) => {
@@ -49,6 +39,4 @@ app.use((err: Error, _req: express.Request, res: express.Response, _next: expres
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(`IPFS Node URL: ${IPFS_NODE_URL}`);
-  console.log(`Contract Address: ${CONTRACT_ADDRESS}`);
-  console.log(`Provider URL: ${PROVIDER_URL}`);
 }); 
